@@ -1,0 +1,11 @@
+.prop-image:hover {
+    opacity: 0.8;
+}
+.card-property-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.card-property-address{
+    font-size: 15px;
+}
+
