@@ -3,19 +3,28 @@ import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
     Button, Modal, ModalHeader, ModalBody, FormGroup, Label, Input
 } from 'reactstrap';
-import {NavLink, Link} from 'react-router-dom';
+import {NavLink, Link } from 'react-router-dom';
+
+
 class HeaderComponent extends Component{
 
     constructor(props){
         super(props);
         this.state={
             isNavOpen: false,
-            isModalOpen: false
+            isModalOpen: false,
+            isSignUpModalOpen: false,
+            toggleSignUpModal:false
         }
     }
     toggleModal =()=>{
         this.setState({
             isModalOpen: !this.state.isModalOpen
+        })
+    };
+    toggleSignUpModal=()=>{
+        this.setState({
+            isSignUpModalOpen: !this.state.isSignUpModalOpen
         })
     };
     toggleNav = ()=> {
@@ -24,9 +33,30 @@ class HeaderComponent extends Component{
         });
     };
     handleLogin = (event)=>{
+        event.preventDefault();
         this.toggleModal();
-        alert(`Username: ${this.email.value} Password: ${this.password.value} `);
+        const userData = {
+            email: this.loginemail.value,
+            password: this.loginpassword.value
+        };
+        this.props.loginUser(userData);
+        console.log(this.props.auth);
+
     };
+    handleSignUp = (event)=>{
+        event.preventDefault();
+        this.toggleSignUpModal();
+        const newUser = {
+            name: this.name.value,
+            email: this.email.value,
+            password: this.password.value,
+            password2: this.password2.value
+        };
+        this.props.registerUser(newUser);
+    };
+    logout =(event)=>{
+        this.props.logoutUser();
+    }
     render() {
         return (
             <Fragment>
@@ -50,14 +80,27 @@ class HeaderComponent extends Component{
                                    Add Property
                                 </NavLink>
                             </NavItem>
-                            <NavItem className="mr-1">
-                                <NavLink to="/signup" className="nav-link">
-                                    Sign Up
-                                </NavLink>
-                            </NavItem>
-                            <NavItem className="nav-link" onClick={this.toggleModal}>
-                                    Sign In
-                            </NavItem>
+
+                            {
+                                this.props.auth.isAuthenticated ?
+                                    <NavItem className="nav-link" onClick={this.logout}>
+                                        Logout
+                                    </NavItem>
+                                    :
+                                    <span className='form-inline'>
+                                        <NavItem className="mr-1 nav-link"  onClick={this.toggleSignUpModal}>
+                                            Sign Up
+                                        </NavItem>
+                                        <NavItem className="nav-link" onClick={this.toggleModal}>
+                                            Sign In
+                                        </NavItem>
+                                    </span>
+
+
+
+                            }
+
+
                             <Link to='/list'>
                                 <Button className="btn btn-green">List Properties</Button>
                             </Link>
@@ -69,18 +112,52 @@ class HeaderComponent extends Component{
                     <ModalBody>
                         <form onSubmit={this.handleLogin}>
                             <FormGroup>
+                                <Input type="email" id="loginemail" name="loginemail"
+                                       innerRef={(input) => this.loginemail = input}
+                                       placeholder="Email"
+
+                                />
+                                <Input type="password" id="loginpassword" name="loginpassword"
+                                       innerRef={(input) => this.loginpassword = input}
+                                       placeholder="Password"
+                                />
+                                <Label className="small">Don't Have an account? <span className="link-green" onClick={this.toggleSignUpModal}>sign up</span></Label>
+                            </FormGroup>
+                            <Button className="btn btn-block btn-green" type="submit" value="submit" >Sign In</Button>
+                        </form>
+                    </ModalBody>
+                </Modal>
+                <Modal isOpen={this.state.isSignUpModalOpen} toggle={this.toggleSignUpModal} className="modal-sm">
+                    <ModalHeader className="m-auto">Sign In</ModalHeader>
+                    <ModalBody>
+                        <form onSubmit={this.handleSignUp}>
+                            <FormGroup>
+                                <Input type="text" id="name" name="name"
+                                       innerRef={(input) => this.name = input}
+                                       placeholder="Your Name"
+                                />
+                            </FormGroup>
+                            <FormGroup>
                                 <Input type="email" id="email" name="email"
                                        innerRef={(input) => this.email = input}
                                        placeholder="Email"
 
                                 />
-                                <Input type="password" id="password" name="password"
-                                       innerRef={(input) => this.password = input}
-                                       placeholder="Password"
-                                />
-                                <Label className="small">Don't Have an account? <NavLink className="link-green" to="/">sign up</NavLink></Label>
                             </FormGroup>
-                            <Button className="btn btn-block btn-green" type="submit" value="submit" >Sign In</Button>
+
+                            <FormGroup>
+                                <Input type="password" id="password" name="password"
+                                               innerRef={(input) => this.password = input}
+                                               placeholder="Password"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Input type="password2" id="password2" name="password2"
+                                       innerRef={(input) => this.password2 = input}
+                                       placeholder="Enter Password Again"
+                                />
+                            </FormGroup>
+                            <Button className="btn btn-block btn-green" type="submit" value="submit" >Sign Up</Button>
                         </form>
                     </ModalBody>
                 </Modal>

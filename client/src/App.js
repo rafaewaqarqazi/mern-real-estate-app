@@ -6,6 +6,7 @@ import { ConfigureStore } from "./redux/store/configureStore";
 import Main from './components/MainComponent';
 
 const store = ConfigureStore();
+
 class App extends Component {
   render() {
     return (

@@ -6,11 +6,7 @@ const Schema = mongoose.Schema;
 //Create Schema
 
 const UserSchema = new  Schema({
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
+    name: {
         type: String,
         required: true
     },
@@ -21,6 +17,10 @@ const UserSchema = new  Schema({
     password: {
         type: String,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 
 });

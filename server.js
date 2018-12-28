@@ -4,20 +4,26 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const users = require('./routes/api/users');
-
+const uploads = require('./routes/api/uploads');
+const property = require('./routes/api/property');
+const cors = require('cors');
+const passport = require("passport");
 const publicDirectory= path.join(__dirname,'client', 'build');
 console.log(publicDirectory);
 const port = process.env.PORT || 5000;
 
+//Set Storage
+app.use(cors());
 
 app.use(express.static(publicDirectory));
-
+app.use(express.static('./public'));
+app.use(bodyParser.json());
 //Using Routes
 
 app.use('/api/users', users);
+app.use('/api/uploads',uploads);
+app.use('/api/property',property);
 
-//Body Parser
-app.use(bodyParser.json());
 
 //DB CONFIG
 
@@ -29,6 +35,9 @@ mongoose.connect(db)
     .then(()=> console.log('Connected to MongoDB'))
     .catch(err => console.log(err.message));
 
+app.use(passport.initialize());
+// Passport config
+require("./config/passport")(passport);
 app.get('*',(req, res)=>{
     res.sendFile(path.join(publicDirectory,'index.html'));
 });
