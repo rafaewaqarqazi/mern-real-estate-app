@@ -40,7 +40,7 @@ class AddPropertyComponent extends Component{
     };
 
     imageHandler = (event) => {
-        if (event.target.files.length === 1)
+        if (event.target.files.length > 3)
         {
             this.setState(prevState=>({
                 image:event.target.files[0].name,

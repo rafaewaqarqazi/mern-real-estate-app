@@ -22,22 +22,25 @@ const PropertyComponent = ({properties, isLoading, errMess})=>{
     else {
         return (
             properties.map(property => {
-                return( <div className="card card-hover col-12 col-md-4 m-2" key={property._id}>
+                return( <div className="card card-hover col-12 col-md-4" key={property._id}>
+                    <div className="card-body p-0">
+                        <img src={`/uploads/${property.image}`} className="prop-image card-img" alt={property.propertytitle}/>
+                    </div>
 
-                    <img src={`/uploads/${property.image}`} className="card-img-top prop-image"/>
 
                     <div className="card-footer">
-                        <div className="d-flex flex-row justify-content-around">
-                            <div>
+                        <div className="row">
+                            <div className="col-md-6">
                                 <p className="card-property-title">{property.propertytitle}</p>
-                                <p className="card-property-address">{property.address}</p>
                             </div>
-                            <div>
-                                <p>{`RS: ${property.price}`}</p>
+                            <div className="col-md-6">
+                                <p className="text-success">{`RS: ${property.price}`}</p>
                             </div>
-
                         </div>
-                        <div className="small m-3">
+                        <div className="row card-property-address ml-auto">
+                            {property.address}
+                        </div>
+                        <div className="small">
                             <Moment format="MMM DD, YYYY">{property.date}</Moment>
                         </div>
                         <Button className="btn-block btn-green">View</Button>

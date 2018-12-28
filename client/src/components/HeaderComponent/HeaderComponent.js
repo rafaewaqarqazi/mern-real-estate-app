@@ -45,14 +45,19 @@ class HeaderComponent extends Component{
     };
     handleSignUp = (event)=>{
         event.preventDefault();
-        this.toggleSignUpModal();
-        const newUser = {
-            name: this.name.value,
-            email: this.email.value,
-            password: this.password.value,
-            password2: this.password2.value
-        };
-        this.props.registerUser(newUser);
+        if (this.password.value === this.password2.value){
+            const newUser = {
+                name: this.name.value,
+                email: this.email.value,
+                password: this.password.value,
+            };
+            this.props.registerUser(newUser);
+            this.toggleSignUpModal();
+        }
+        else {
+            alert('Password Does not Match');
+        }
+
     };
     logout =(event)=>{
         this.props.logoutUser();
@@ -79,31 +84,33 @@ class HeaderComponent extends Component{
 
                             {
                                 this.props.auth.isAuthenticated ?
-                                    <span  className='form-inline'>
-                                        <NavItem >
-                                            <NavLink to="/addproperty" className="nav-link">
-                                                 Add Property
-                                            </NavLink>
-                                        </NavItem>
-                                        <NavItem >
-                                            <NavLink to="/user/dashboard" className="nav-link">
-                                               Dashboard
-                                            </NavLink>
-                                        </NavItem>
-                                         <NavItem className="nav-link" onClick={this.logout}>
-                                            Logout
-                                         </NavItem>
-                                    </span>
+                                  <Fragment>
+                                      <NavItem >
+                                          <NavLink to="/addproperty" className="nav-link">
+                                              Add Property
+                                          </NavLink>
+                                      </NavItem>
+                                      <NavItem >
+                                          <NavLink to="/user/dashboard" className="nav-link">
+                                              Dashboard
+                                          </NavLink>
+                                      </NavItem>
+                                      <NavItem className="nav-link" onClick={this.logout}>
+                                          Logout
+                                      </NavItem>
+                                  </Fragment>
+
+
 
                                     :
-                                    <span className='form-inline'>
+                                    <Fragment >
                                         <NavItem className="mr-1 nav-link"  onClick={this.toggleSignUpModal}>
                                             Sign Up
                                         </NavItem>
                                         <NavItem className="nav-link" onClick={this.toggleModal}>
                                             Sign In
                                         </NavItem>
-                                    </span>
+                                    </Fragment>
 
 
 
@@ -163,7 +170,7 @@ class HeaderComponent extends Component{
                             <FormGroup>
                                 <Input type="password2" id="password2" name="password2"
                                        innerRef={(input) => this.password2 = input}
-                                       placeholder="Enter Password Again"
+                                       placeholder="Confirm Password"
                                 />
                             </FormGroup>
                             <Button className="btn btn-block btn-green" type="submit" value="submit" >Sign Up</Button>

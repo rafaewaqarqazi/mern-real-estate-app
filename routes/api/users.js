@@ -73,25 +73,18 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login', function(req, res, next) {
+
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
-        if (!user) { return res.json({failed:'Login Failed'}); }
+        if (!user) { return res.status(400).json({failed:'Login Failed'}); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             return res.json({ id:req.user.id });
         });
     })(req, res, next);
 });
-router.get(
-    "/currentuser",
-    passport.authenticate("jwt", { session: false }, (req, res) => {
-        res.json({
-            id: req.user.id,
-            name: req.user.name,
-            email: req.user.email
-        });
-    })
-
-);
+router.get('/logout',(req,res)=>{
+    req.logout()
+});
 
 module.exports = router;

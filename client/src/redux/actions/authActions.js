@@ -1,5 +1,5 @@
 import axios from "axios";
-import setAuthToken from "../../utils/setAuthToken";
+import isEmpty from 'is-empty';
 
 import {
     GET_CURRENT_USER,
@@ -12,7 +12,7 @@ export const registerUser = (userData) => dispatch => {
         .post("http://localhost:5000/api/users/register", userData)
         .then(res => alert('Registered Successfully')) // re-direct to login on successful register
         .catch(err =>
-            console.log(err)
+            alert('Email Already Exist')
         );
 };
 // Login - get user token
@@ -21,12 +21,13 @@ export const loginUser = userData => dispatch => {
     axios
         .post("http://localhost:5000/api/users/login", userData)
         .then(res => {
+            localStorage.setItem("user",res.data.id);
             dispatch(setCurrentUser(res.data));
             alert('Logged in Successfully');
         })
-        .catch(err =>
-           console.log(err)
-        );
+        .catch(err => {
+            alert('Login Failed');
+        });
 };
 // Set logged in user
 export const setCurrentUser = userId => {
@@ -38,17 +39,11 @@ export const setCurrentUser = userId => {
 // Get current user
 export const getCurrentUser = () => dispatch => {
     dispatch(setUserLoading());
-    axios
-        .get("http://localhost:5000/api/user/currentuser")
-        .then(res =>
-            dispatch({
-                type: GET_CURRENT_USER,
-                payload: res.data
-            })
-        )
-        .catch(err =>
-            console.log(err)
-        );
+    if (localStorage.getItem("user") != null){
+        alert(JSON.stringify(localStorage.getItem("user")));
+        dispatch(setCurrentUser(localStorage.getItem("user")));
+    }
+
 };
 // User loading
 export const setUserLoading = () => {
@@ -56,14 +51,12 @@ export const setUserLoading = () => {
         type: USER_LOADING
     };
 };
+
 // Log user out
 export const logoutUser = () => dispatch => {
-    // Remove token from local storage
-    localStorage.removeItem("jwtToken");
-    // Remove auth header for future requests
-    setAuthToken(false);
-    // Set current user to empty object {} which will set isAuthenticated to false
+
     dispatch(setCurrentUser({}));
+    localStorage.removeItem("user");
     alert('Logged out Successfully');
 
 };

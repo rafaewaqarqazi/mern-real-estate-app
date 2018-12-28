@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as ActionTypes from "./types";
+import {getCurrentUser} from "./authActions";
 
 export const addProperty = (newProperty) => dispatch => {
     axios.post("http://localhost:5000/api/uploads/property",newProperty)
@@ -12,6 +13,7 @@ export const addProperty = (newProperty) => dispatch => {
 };
 export const fetchProperties = ()=>dispatch =>{
     dispatch(propertiesLoading(true));
+    dispatch(getCurrentUser());
     axios.get("http://localhost:5000/api/property/all")
         .then((response) => {
             dispatch(addProperties(response.data));
