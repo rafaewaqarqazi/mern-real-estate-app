@@ -6,14 +6,31 @@ const bodyParser = require('body-parser');
 const users = require('./routes/api/users');
 const uploads = require('./routes/api/uploads');
 const property = require('./routes/api/property');
+const session = require('express-session');
 const cors = require('cors');
 const passport = require("passport");
+const localStrategy = require('passport-local').Strategy;
 const publicDirectory= path.join(__dirname,'client', 'build');
 console.log(publicDirectory);
 const port = process.env.PORT || 5000;
 
 //Set Storage
 app.use(cors());
+
+//Handles Express Sessions
+app.use(session({
+    secret:'cats',
+    saveUninitialized:true,
+    resave:true
+}));
+
+
+
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use(express.static(publicDirectory));
 app.use(express.static('./public'));

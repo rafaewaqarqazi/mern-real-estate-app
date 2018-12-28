@@ -21,16 +21,8 @@ export const loginUser = userData => dispatch => {
     axios
         .post("http://localhost:5000/api/users/login", userData)
         .then(res => {
-            // Save to localStorage
-// Set token to localStorage
-            const { token } = res.data;
-            localStorage.setItem("jwtToken", token);
-            // Set token to Auth header
-            setAuthToken(token);
-            // Decode token to get user data
-            const decoded = jwt_decode(token);
-            // Set current user
-            dispatch(setCurrentUser(decoded));
+                alert(JSON.stringify(res.data));
+            dispatch(setCurrentUser(res.data));
             alert('Logged in Successfully');
 
         })
@@ -39,10 +31,10 @@ export const loginUser = userData => dispatch => {
         );
 };
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = userId => {
     return {
         type: SET_CURRENT_USER,
-        payload: decoded
+        payload: userId
     };
 };
 // Get current user

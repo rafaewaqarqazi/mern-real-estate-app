@@ -83,9 +83,17 @@ class HeaderComponent extends Component{
 
                             {
                                 this.props.auth.isAuthenticated ?
-                                    <NavItem className="nav-link" onClick={this.logout}>
-                                        Logout
-                                    </NavItem>
+                                    <span  className='form-inline'>
+                                        <NavItem >
+                                            <NavLink to="/user/dashboard" className="nav-link">
+                                               Dashboard
+                                            </NavLink>
+                                        </NavItem>
+                                         <NavItem className="nav-link" onClick={this.logout}>
+                                            Logout
+                                         </NavItem>
+                                    </span>
+
                                     :
                                     <span className='form-inline'>
                                         <NavItem className="mr-1 nav-link"  onClick={this.toggleSignUpModal}>

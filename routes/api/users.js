@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const LocalStrategy = require('passport-local').Strategy;
 const User = require('../../models/users');
 
 router.get('/', (req, res) => {
@@ -35,47 +36,52 @@ router.post('/register', (req, res) => {
         });
     });
 });
-router.post("/login", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-// Find user by email
-    User.findOne({ email }).then(user => {
-        // Check if user exists
-        if (!user) {
-            return res.status(404).json({ emailnotfound: "Email not found" });
-        }
-// Check password
-        bcrypt.compare(password, user.password).then(isMatch => {
-            if (isMatch) {
-                // User matched
-                // Create JWT Payload
-                const payload = {
-                    id: user.id,
-                    name: user.name
-                };
-// Sign token
-                jwt.sign(
-                    payload,
-                    keys.secretOrKey,
-                    {
-                        expiresIn: 31556926 // 1 year in seconds
-                    },
-                    (err, token) => {
-                        res.json({
-                            success: true,
-                            token: "Bearer " + token
-                        });
-                    }
-                );
-            } else {
-                return res
-                    .status(400)
-                    .json({ passwordincorrect: "Password incorrect" });
+
+
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    },
+    function(email,password,done){
+        User.findOne({ email: email }, function (err, user) {
+            if (err) { return done(err); }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect Email.' });
             }
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, {message: 'Incorrect password.'});
+                }
+            });
+
+
         });
+
+    }
+));
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
     });
 });
 
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.json({failed:'Login Failed'}); }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            return res.json({ id:req.user.id });
+        });
+    })(req, res, next);
+});
 router.get(
     "/currentuser",
     passport.authenticate("jwt", { session: false }, (req, res) => {
