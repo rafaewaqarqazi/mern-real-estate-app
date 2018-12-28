@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Divider, CssBaseline, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,withStyles     }from '@material-ui/core';
-
+import {Link} from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
@@ -56,7 +56,7 @@ class UserDashboardComponent extends Component {
         const drawer = (
             <div>
                 <div className={classes.toolbar} >
-                    <h4><span className="fa fa-home fa-lg m-3"> Real Estate</span></h4>
+                    <Link to="/"><h4><span className="fa fa-home fa-lg m-3"> Real Estate</span></h4></Link>
                 </div>
                 <Divider />
                 <List>
@@ -129,6 +129,7 @@ class UserDashboardComponent extends Component {
                     </Hidden>
                 </nav>
                 <main className="text-white">
+
                 </main>
             </div>
         );

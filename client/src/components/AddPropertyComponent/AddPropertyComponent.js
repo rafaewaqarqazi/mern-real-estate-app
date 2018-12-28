@@ -31,20 +31,23 @@ class AddPropertyComponent extends Component{
                 latitude:this.state.latitude,
                 longitude:this.state.longitude
             };
-            alert(JSON.stringify(val));
             const formData = new FormData();
             formData.append('image',this.state.imageFile);
             this.props.addImageToServer(formData);
             this.props.addProperty(val);
         }
+        this.props.resetAddPropertyForm();
     };
 
     imageHandler = (event) => {
-
-        this.setState(prevState=>({
+        if (event.target.files.length === 1)
+        {
+            this.setState(prevState=>({
                 image:event.target.files[0].name,
                 imageFile: event.target.files[0]
             }));
+
+        }
 
     };
 
@@ -67,7 +70,7 @@ class AddPropertyComponent extends Component{
 
     render() {
         return (
-            <div className="text-white ">
+            <div className="bg-darkBrown text-white">
                 <div className="bg-green text-center p-4" >
                     <h3>Add New Property</h3>
                 </div>
@@ -99,8 +102,8 @@ class AddPropertyComponent extends Component{
                         <Row className="form-group">
                             <Label htmlFor="for" md={2}>For</Label>
                             <Col md={6}>
-                                <Control.select model=".for" name="for" className="form-control">
-                                    <option selected>Sale</option>
+                                <Control.select model=".for" name="for" className="form-control" defaultValue="Sale">
+                                    <option>Sale</option>
                                     <option>Rent</option>
                                 </Control.select>
                             </Col>
@@ -163,6 +166,38 @@ class AddPropertyComponent extends Component{
                                         <strong>Lounge</strong>
                                     </Label>
                                 </div>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="address" md={2}>Address</Label>
+                            <Col md={6}>
+
+                                <Control.text model=".address" id="address" name="address"
+                                              placeholder="Address"
+                                              className="form-control"
+                                              validators={{
+                                                  required, minLength: minLength(3), maxLength: maxLength(50)
+                                              }}
+                                />
+                                <Errors model=".address"
+                                        className="text-danger"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 3 characters',
+                                            maxLength: 'Must be less than 50 Characters'
+                                        }}
+                                />
+
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="city" md={2}>City</Label>
+                            <Col md={6}>
+                                <Control.select model=".city" name="city" className="form-control" defaultValue="Rawalpindi">
+                                    <option>Rawalpindi</option>
+                                    <option>Islamabad</option>
+                                </Control.select>
                             </Col>
                         </Row>
                         <Row className="form-group">

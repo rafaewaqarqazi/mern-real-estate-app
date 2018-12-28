@@ -6,7 +6,7 @@ const Property = require('../../models/property');
 const storage = multer.diskStorage({
     destination: './client/public/uploads/',
     filename: function (req, file, cb) {
-        cb(null,file.fieldname + '-' +Date.now() + path.extname(file.originalname));
+        cb(null,file.originalname);
     }
 });
 
@@ -16,9 +16,6 @@ const upload = multer({
 
 router.post('/image', (req, res) => {
     upload(req, res, (err) => {
-        console.log("Request ---", req.body);
-        console.log("Request file ---", req.file);//Here you get file.
-        /*Now do where ever you want to do*/
         if (err){
             console.log(err);
         }
@@ -39,6 +36,8 @@ router.post('/property',(req, res)=>{
         lounge: req.body.lounge,
         price:  req.body.price,
         image:req.body.image,
+        address:req.body.address,
+        city:req.body.city,
         location:{
             type: "Point",
             coordinates:[

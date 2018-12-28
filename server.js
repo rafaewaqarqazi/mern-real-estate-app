@@ -17,30 +17,31 @@ const port = process.env.PORT || 5000;
 //Set Storage
 app.use(cors());
 
-//Handles Express Sessions
-app.use(session({
-    secret:'cats',
-    saveUninitialized:true,
-    resave:true
-}));
-
-
-
-//Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 
 app.use(express.static(publicDirectory));
 app.use(express.static('./public'));
+//Handles Express Sessions
+app.use(session({
+    secret:'cats',
+    saveUninitialized:false,
+    resave:false
+}));
+
+
+
+
+
 app.use(bodyParser.json());
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Using Routes
 
 app.use('/api/users', users);
 app.use('/api/uploads',uploads);
 app.use('/api/property',property);
-
 
 //DB CONFIG
 

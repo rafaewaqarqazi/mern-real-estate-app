@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
+
 import {
     GET_CURRENT_USER,
     SET_CURRENT_USER,
@@ -21,10 +21,8 @@ export const loginUser = userData => dispatch => {
     axios
         .post("http://localhost:5000/api/users/login", userData)
         .then(res => {
-                alert(JSON.stringify(res.data));
             dispatch(setCurrentUser(res.data));
             alert('Logged in Successfully');
-
         })
         .catch(err =>
            console.log(err)

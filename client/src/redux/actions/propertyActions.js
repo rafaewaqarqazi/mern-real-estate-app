@@ -1,27 +1,38 @@
 import axios from "axios";
-import {ADD_PROPERTIES, ADD_PROPERTY} from "./types";
+import * as ActionTypes from "./types";
 
 export const addProperty = (newProperty) => dispatch => {
     axios.post("http://localhost:5000/api/uploads/property",newProperty)
         .then((response) => {
-            dispatch(addNewProperty(newProperty));
-            alert("The Property is successfully uploaded");
+
+            dispatch(addNewProperty(response.data));
+            alert("Property is successfully added");
         }).catch((error) => {
     });
 };
 export const fetchProperties = ()=>dispatch =>{
+    dispatch(propertiesLoading(true));
     axios.get("http://localhost:5000/api/property/all")
         .then((response) => {
-            dispatch(addProperties(response));
+            dispatch(addProperties(response.data));
         }).catch((error) => {
+            dispatch(propertiesFailed(error.message));
     });
 };
+
+export const propertiesLoading = ()=>({
+    type: ActionTypes.PROPERTY_LOADING
+});
+export const propertiesFailed = (errMess)=>({
+    type:ActionTypes.PROPERTY_ERROR,
+    payload:errMess
+});
 export const addNewProperty=(property)=>({
-    type: ADD_PROPERTY,
+    type: ActionTypes.ADD_PROPERTY,
     payload: property
 });
 export const addProperties=(properties)=>({
-    type:ADD_PROPERTIES,
+    type: ActionTypes.ADD_PROPERTIES,
     payload: properties
 });
 export const addImageToServer= ( image ) => dispatch =>{
@@ -32,7 +43,7 @@ export const addImageToServer= ( image ) => dispatch =>{
     };
     axios.post("http://localhost:5000/api/uploads/image",image,config)
         .then((response) => {
-            alert("The file is successfully uploaded");
+            console.log('Images Uploaded')
         }).catch((error) => {
     });
 };

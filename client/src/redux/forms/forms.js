@@ -6,6 +6,7 @@ export const InitialFeedback = {
     garage: false,
     lounge: false,
     price:  '',
-
+    address:'',
+    city:'',
     description: ''
 };

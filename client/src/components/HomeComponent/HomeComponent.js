@@ -2,7 +2,8 @@ import React, {Fragment} from 'react';
 import {NavLink} from "react-router-dom";
 import {Button} from "reactstrap";
 import PropertyComponent from '../PropertyComponent/PropertyComponent';
-const Home = ()=> (
+import HomePage from "../MainComponent";
+const Home = ({properties, isLoading, errMess})=> (
     <Fragment >
         <div className="text-white">
             <div className="container pt-5">
@@ -14,7 +15,7 @@ const Home = ()=> (
                     </div>
                 </div>
             </div>
-            <div className="row bg-transparent mt-5">
+            <div className="row mt-5 bg-green">
                 <div className="col-12 col-md p-2 text-center ">
                     <h5 className="home-subtitle">Recently Listed Properties</h5>
                     <p>Checkout Latest Listed Properties for sale and rent</p>
@@ -22,8 +23,11 @@ const Home = ()=> (
             </div>
         </div>
 
-        <div className="col-12 col-md-4 mt-5">
-            <PropertyComponent/>
+        <div className= "row mt-5">
+            <PropertyComponent properties={properties}
+                               isLoading={isLoading}
+                               errMess={errMess}
+            />
         </div>
     </Fragment>
 

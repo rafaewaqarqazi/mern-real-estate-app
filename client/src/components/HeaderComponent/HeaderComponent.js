@@ -56,7 +56,7 @@ class HeaderComponent extends Component{
     };
     logout =(event)=>{
         this.props.logoutUser();
-    }
+    };
     render() {
         return (
             <Fragment>
@@ -75,15 +75,16 @@ class HeaderComponent extends Component{
                                     Rent
                                 </NavLink>
                             </NavItem>
-                            <NavItem >
-                                <NavLink to="/addproperty" className="nav-link">
-                                   Add Property
-                                </NavLink>
-                            </NavItem>
+
 
                             {
                                 this.props.auth.isAuthenticated ?
                                     <span  className='form-inline'>
+                                        <NavItem >
+                                            <NavLink to="/addproperty" className="nav-link">
+                                                 Add Property
+                                            </NavLink>
+                                        </NavItem>
                                         <NavItem >
                                             <NavLink to="/user/dashboard" className="nav-link">
                                                Dashboard

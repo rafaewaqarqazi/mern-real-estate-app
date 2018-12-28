@@ -3,6 +3,7 @@
 @import "components/HomeComponent/homePage.css";
 @import "components/PropertyComponent/propertyComponent.css";
 @import "components/ListPropertiesComponent/list-properties.css";
+@import "components/LoadingComponent/loadingSpinner.css";
 body{
     margin-top: 70px;
     background-image: url("/background.jpg");
@@ -12,4 +13,7 @@ body{
 }
 .bg-green{
     background: #0eaaa6;
+}
+.bg-darkBrown{
+    background: #004D40;
 }

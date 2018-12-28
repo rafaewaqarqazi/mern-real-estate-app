@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Input, InputGroup, InputGroupAddon, InputGroupText, Label} from "reactstrap";
 import PropertyComponent from '../PropertyComponent/PropertyComponent';
+import HomePage from "../MainComponent";
 
 class ListPropertiesComponent extends Component{
 
@@ -41,8 +42,11 @@ class ListPropertiesComponent extends Component{
                     </div>
                 </div>
 
-                <div className="col-12 col-md-4 mt-5">
-                    <PropertyComponent/>
+                <div className="row mt-5">
+                    <PropertyComponent properties={this.props.properties}
+                                       isLoading={this.props.isLoading}
+                                       errMess={this.props.errMess}
+                    />
                 </div>
 
 
