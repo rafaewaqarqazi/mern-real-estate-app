@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import {Button} from "reactstrap";
 import PropertyComponent from '../PropertyComponent/PropertyComponent';
 
-const Home = ({properties, isLoading, errMess})=> (
+const Home = ({recentProperties, isLoading, errMess})=> (
     <Fragment >
         <div className="text-white">
             <div className="container pt-5">
@@ -23,9 +23,9 @@ const Home = ({properties, isLoading, errMess})=> (
             </div>
         </div>
 
-        <div className= "container-fluid">
-            <div className="row m-1">
-                <PropertyComponent properties={properties}
+        <div className= "container">
+            <div className="row mt-5">
+                <PropertyComponent properties={recentProperties}
                                    isLoading={isLoading}
                                    errMess={errMess}
                 />

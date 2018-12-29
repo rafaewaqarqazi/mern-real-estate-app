@@ -5,12 +5,14 @@ import logger from 'redux-logger';
 import {InitialFeedback} from "../forms/forms";
 import authReducer from "../reducers/authReducers";
 import propertyReducer from '../reducers/propertyReducer';
+import recentPropertiesReducer from '../reducers/recentPropertiesReducer';
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             auth: authReducer,
             properties:propertyReducer,
+            recent:recentPropertiesReducer,
             ...createForms({
                 feedback: InitialFeedback
             })

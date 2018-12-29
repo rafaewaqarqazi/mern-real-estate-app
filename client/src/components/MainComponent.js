@@ -10,13 +10,14 @@ import UserDashboard from './UserDashboardComponent/UserDashboardComponent';
 import AddPropertyComponent from "./AddPropertyComponent/AddPropertyComponent";
 import { loginUser, logoutUser, registerUser } from "../redux/actions/authActions";
 import PrivateRoute from '../routes/PrivateRoute';
-import {addImageToServer, addProperty, fetchProperties} from "../redux/actions/propertyActions";
+import {addImageToServer, addProperty, fetchProperties, fetchRecentProperties} from "../redux/actions/propertyActions";
 import {actions} from "react-redux-form";
 
 const mapStateToProps = state => {
     return {
         auth: state.auth,
-        properties: state.properties
+        properties: state.properties,
+        recent:state.recent
     }
 };
 
@@ -27,6 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
     addProperty:(newProperty)=>dispatch(addProperty(newProperty)),
     addImageToServer:(image)=>dispatch(addImageToServer(image)),
     fetchProperties: ()=>{dispatch(fetchProperties())},
+    fetchRecentProperties:()=>{dispatch(fetchRecentProperties())},
     resetAddPropertyForm: ()=> {dispatch(actions.reset('feedback'))},
 });
 
@@ -36,6 +38,7 @@ class Main extends Component {
 
     componentDidMount() {
         this.props.fetchProperties();
+        this.props.fetchRecentProperties();
     }
 
     render() {
@@ -49,9 +52,9 @@ class Main extends Component {
                     auth={this.props.auth}
                 />
                 <Switch>
-                    <Route exact path="/" component={()=> <HomePage properties={this.props.properties.properties}
-                                                                    isLoading={this.props.properties.isLoading}
+                    <Route exact path="/" component={()=> <HomePage isLoading={this.props.properties.isLoading}
                                                                     errMess={this.props.properties.errMess}
+                                                                    recentProperties={this.props.recent.recent}
                                                         />}
                     />
                     <Route path="/list" component={()=> <ListPropertiesComponent
@@ -62,7 +65,7 @@ class Main extends Component {
                     />
                     <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard}/>
                     <PrivateRoute exact path="/user/dashboard" component={UserDashboard}/>
-                    <PrivateRoute path="/addproperty" component={() => <AddPropertyComponent
+                    <PrivateRoute path="/property/add" component={() => <AddPropertyComponent
                                                                     addProperty={this.props.addProperty}
                                                                     addImageToServer={this.props.addImageToServer}
                                                                     resetAddPropertyForm={this.props.resetAddPropertyForm}

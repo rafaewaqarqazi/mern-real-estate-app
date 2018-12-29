@@ -7,6 +7,7 @@ export const addProperty = (newProperty) => dispatch => {
         .then((response) => {
 
             dispatch(addNewProperty(response.data));
+            dispatch(fetchRecentProperties());
             alert("Property is successfully added");
         }).catch((error) => {
     });
@@ -29,6 +30,8 @@ export const propertiesFailed = (errMess)=>({
     type:ActionTypes.PROPERTY_ERROR,
     payload:errMess
 });
+
+
 export const addNewProperty=(property)=>({
     type: ActionTypes.ADD_PROPERTY,
     payload: property
@@ -37,6 +40,32 @@ export const addProperties=(properties)=>({
     type: ActionTypes.ADD_PROPERTIES,
     payload: properties
 });
+
+export const fetchRecentProperties = ()=> dispatch =>{
+    dispatch(recentPropertiesLoading(true));
+    dispatch(getCurrentUser());
+    axios.get("http://localhost:5000/api/property/recent")
+        .then((response) => {
+            dispatch(addRecentProperties(response.data));
+        }).catch((error) => {
+        dispatch(recentPropertiesFailed(error.message));
+    });
+};
+
+export const recentPropertiesLoading = ()=>({
+    type: ActionTypes.RECENT_LOADING
+});
+export const recentPropertiesFailed = (errMess)=>({
+    type:ActionTypes.RECENT_FAILED,
+    payload:errMess
+});
+
+
+export const addRecentProperties=(property)=>({
+    type: ActionTypes.ADD_RECENT,
+    payload: property
+});
+
 export const addImageToServer= ( image ) => dispatch =>{
     const config = {
         headers: {

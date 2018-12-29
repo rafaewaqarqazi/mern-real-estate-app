@@ -22,7 +22,7 @@ const PropertyComponent = ({properties, isLoading, errMess})=>{
     else {
         return (
             properties.map(property => {
-                return( <div className="card card-hover col-12 col-md-4" key={property._id}>
+                return( <div className="card card-hover col-12 col-md-4 col-sm-6 mb-2" key={property._id}>
                     <div className="card-body p-0">
                         <img src={`/uploads/${property.image}`} className="prop-image card-img" alt={property.propertytitle}/>
                     </div>

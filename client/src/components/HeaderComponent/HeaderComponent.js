@@ -8,6 +8,7 @@ import {NavLink, Link } from 'react-router-dom';
 
 class HeaderComponent extends Component{
 
+
     constructor(props){
         super(props);
         this.state={
@@ -17,6 +18,8 @@ class HeaderComponent extends Component{
             toggleSignUpModal:false
         }
     }
+
+
     toggleModal =()=>{
         this.setState({
             isModalOpen: !this.state.isModalOpen
@@ -62,10 +65,11 @@ class HeaderComponent extends Component{
     logout =(event)=>{
         this.props.logoutUser();
     };
+
     render() {
         return (
             <Fragment>
-                <Navbar dark expand="md" className="fixed-top navbar-dark -inverse">
+                <Navbar dark expand="md" className="fixed-top bg-dark">
                     <NavbarBrand ><NavLink to='/' className="navbar-brand"><span className="fa fa-home fa-lg"> Real Estate</span></NavLink></NavbarBrand>
                     <NavbarToggler onClick={this.toggleNav} />
                     <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -86,7 +90,7 @@ class HeaderComponent extends Component{
                                 this.props.auth.isAuthenticated ?
                                   <Fragment>
                                       <NavItem >
-                                          <NavLink to="/addproperty" className="nav-link">
+                                          <NavLink to="/property/add" className="nav-link">
                                               Add Property
                                           </NavLink>
                                       </NavItem>

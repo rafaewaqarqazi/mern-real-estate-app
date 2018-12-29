@@ -40,7 +40,6 @@ export const setCurrentUser = userId => {
 export const getCurrentUser = () => dispatch => {
     dispatch(setUserLoading());
     if (localStorage.getItem("user") != null){
-        alert(JSON.stringify(localStorage.getItem("user")));
         dispatch(setCurrentUser(localStorage.getItem("user")));
     }
 
