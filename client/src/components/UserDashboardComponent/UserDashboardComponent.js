@@ -128,7 +128,7 @@ class UserDashboardComponent extends Component {
                         </Drawer>
                     </Hidden>
                 </nav>
-                <main className="text-white">
+                <main className={classes.content}>
 
                 </main>
             </div>
