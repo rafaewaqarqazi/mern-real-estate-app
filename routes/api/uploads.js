@@ -25,8 +25,6 @@ router.post('/image', (req, res) => {
 });
 router.post('/property',(req, res)=>{
 
-    console.log(JSON.stringify(req.body));
-
     const newProperty = new Property({
         propertytitle:req.body.propertytitle,
         for:req.body.for,
