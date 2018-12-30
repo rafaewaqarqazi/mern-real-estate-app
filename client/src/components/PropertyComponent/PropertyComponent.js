@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from "reactstrap";
 import { Loading } from '../LoadingComponent/LoadingComponent';
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom';
 const PropertyComponent = ({properties, isLoading, errMess})=>{
     if(isLoading){
         return(
@@ -43,7 +44,7 @@ const PropertyComponent = ({properties, isLoading, errMess})=>{
                         <div className="small">
                             <Moment format="MMM DD, YYYY">{property.date}</Moment>
                         </div>
-                        <Button className="btn-block btn-green">View</Button>
+                        <Link to={`/property/${property._id}`} className="btn btn-block btn-green">View</Link>
 
                     </div>
                 </div>)

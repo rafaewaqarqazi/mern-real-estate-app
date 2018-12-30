@@ -21,12 +21,13 @@ export const loginUser = userData => dispatch => {
     axios
         .post("http://localhost:5000/api/users/login", userData)
         .then(res => {
+
             localStorage.setItem("user",res.data.id);
             dispatch(setCurrentUser(res.data));
             alert('Logged in Successfully');
         })
         .catch(err => {
-            alert('Login Failed');
+           alert(err.response.data.message);
         });
 };
 // Set logged in user
@@ -54,8 +55,20 @@ export const setUserLoading = () => {
 // Log user out
 export const logoutUser = () => dispatch => {
 
-    dispatch(setCurrentUser({}));
-    localStorage.removeItem("user");
-    alert('Logged out Successfully');
+
+    axios
+        .get("http://localhost:5000/api/users/logout")
+        .then(res => {
+            if (res.status === 200){
+                dispatch(setCurrentUser({}));
+                localStorage.removeItem("user");
+                alert('Logged out Successfully');
+            }
+
+        })
+        .catch(err => {
+            alert('Logout Failed');
+        });
+
 
 };

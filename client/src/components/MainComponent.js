@@ -71,6 +71,7 @@ class Main extends Component {
                                                                     resetAddPropertyForm={this.props.resetAddPropertyForm}
                                                                 />}
                     />
+                    <Route path="/property/:id"/>
                     <Redirect to="/"/>
                 </Switch>
                 <Footer/>

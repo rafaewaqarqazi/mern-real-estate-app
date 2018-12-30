@@ -75,8 +75,9 @@ passport.deserializeUser(function(id, done) {
 router.post('/login', function(req, res, next) {
 
     passport.authenticate('local', function(err, user, info) {
+
         if (err) { return next(err); }
-        if (!user) { return res.status(400).json({failed:'Login Failed'}); }
+        if (!user) { return res.status(400).json({message:info.message}); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             return res.json({ id:req.user.id });
@@ -84,7 +85,8 @@ router.post('/login', function(req, res, next) {
     })(req, res, next);
 });
 router.get('/logout',(req,res)=>{
-    req.logout()
+    req.logout();
+    res.sendStatus(200);
 });
 
 module.exports = router;
