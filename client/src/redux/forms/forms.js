@@ -1,13 +1,17 @@
 export const InitialFeedback = {
     propertytitle: '',
-    for: '',
+    for: 'Sale',
     bedrooms: '',
     bathrooms: '',
     garage: false,
     lounge: false,
     price:  '',
+    priceUnit:'Lac',
+    area:'',
+    areaUnit:'Marla',
     address:'',
-    city:'',
+    contact:'',
+    city:'Rawalpindi',
     description: ''
 };
 export const ContactForm = {

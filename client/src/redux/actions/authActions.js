@@ -22,7 +22,7 @@ export const loginUser = userData => dispatch => {
         .post("http://localhost:5000/api/users/login", userData)
         .then(res => {
 
-            localStorage.setItem("user",res.data.id);
+            localStorage.setItem("user",JSON.stringify(res.data) );
             dispatch(setCurrentUser(res.data));
             alert('Logged in Successfully');
         })
@@ -41,7 +41,8 @@ export const setCurrentUser = userId => {
 export const getCurrentUser = () => dispatch => {
     dispatch(setUserLoading());
     if (localStorage.getItem("user") != null){
-        dispatch(setCurrentUser(localStorage.getItem("user")));
+
+        dispatch(setCurrentUser((JSON.parse(localStorage.getItem("user")) ) ));
     }
 
 };

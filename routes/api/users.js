@@ -80,7 +80,7 @@ router.post('/login', function(req, res, next) {
         if (!user) { return res.status(400).json({message:info.message}); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.json({ id:req.user.id });
+            return res.json({ id:req.user.id, email:req.user.email });
         });
     })(req, res, next);
 });

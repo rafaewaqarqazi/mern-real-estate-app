@@ -11,7 +11,13 @@ import AddPropertyComponent from "./AddPropertyComponent/AddPropertyComponent";
 import PropertyDetail from './PropertyDetailComponent/PropertyDetailComponent';
 import { loginUser, logoutUser, registerUser } from "../redux/actions/authActions";
 import PrivateRoute from '../routes/PrivateRoute';
-import {addImageToServer, addProperty, fetchProperties, fetchRecentProperties} from "../redux/actions/propertyActions";
+import {
+    addImageToServer,
+    addProperty,
+    fetchProperties,
+    fetchRecentProperties,
+    sendEmailToOwner
+} from "../redux/actions/propertyActions";
 import {actions} from "react-redux-form";
 
 const mapStateToProps = state => {
@@ -30,7 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
     addImageToServer:(image)=>dispatch(addImageToServer(image)),
     fetchProperties: ()=>{dispatch(fetchProperties())},
     fetchRecentProperties:()=>{dispatch(fetchRecentProperties())},
-    resetAddPropertyForm: ()=> {dispatch(actions.reset('feedback'))},
+    resetAddPropertyForm: ()=> {dispatch(actions.reset('addProperty'))},
+    resetEmailOwnerForm:()=>{dispatch(actions.reset('contact'))},
+    sendEmailToOwner:(data)=>{dispatch(sendEmailToOwner(data))}
 });
 
 
@@ -70,12 +78,15 @@ class Main extends Component {
                                                                     addProperty={this.props.addProperty}
                                                                     addImageToServer={this.props.addImageToServer}
                                                                     resetAddPropertyForm={this.props.resetAddPropertyForm}
+                                                                    auth={this.props.auth}
                                                                 />}
                     />
                     <Route path="/property/:id" component={({match})=><PropertyDetail
                         property={this.props.properties.properties.filter(property => property._id === match.params.id)[0]}
                         isLoading={this.props.properties.isLoading}
                         errMess={this.props.properties.errMess}
+                        resetEmailOwnerForm={this.props.resetEmailOwnerForm}
+                        sendEmailToOwner={this.props.sendEmailToOwner}
                     />}
                     />
                     <Redirect to="/"/>

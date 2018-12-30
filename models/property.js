@@ -42,6 +42,26 @@ const PropertySchema = new  Schema({
         type: String,
         required: true
     },
+    priceUnit:{
+        type: String,
+        required: true
+    },
+    area:{
+        type: String,
+        required: true
+    },
+    areaUnit:{
+        type: String,
+        required: true
+    },
+    contact:{
+        type: String,
+        required: true
+    },
+    email:{
+        type: String,
+        required: true
+    },
     address:{
         type: String,
         required: true

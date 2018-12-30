@@ -78,3 +78,12 @@ export const addImageToServer= ( image ) => dispatch =>{
         }).catch((error) => {
     });
 };
+
+export const sendEmailToOwner = (data)=> dispatch =>{
+    axios.post("http://localhost:5000/api/property/contact",data)
+        .then((response) => {
+            alert('Email Sent :D');
+        }).catch((error) => {
+            console.log(error);
+    });
+};

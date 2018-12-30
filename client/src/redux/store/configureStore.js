@@ -14,7 +14,7 @@ export const ConfigureStore = () => {
             properties:propertyReducer,
             recent:recentPropertiesReducer,
             ...createForms({
-                feedback: InitialFeedback,
+                addProperty: InitialFeedback,
                 contact: ContactForm
             })
         }),

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Control, Form, Errors } from "react-redux-form";
 import {Button, Label, Col, Row } from 'reactstrap';
+import mapStateToProps from "react-redux/es/connect/mapStateToProps";
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => !(val) || (val.length >= len);
@@ -25,20 +26,23 @@ class AddPropertyComponent extends Component{
     handleSubmit = values => {
         if (this.state.imageFile === null){
             alert('Please add Image of Property');
+        }else if(this.state.latitude === ''){
+            alert('Please Add Location');
         }
         else {
             const val = {
                 ...values,
                 image: this.state.image,
                 latitude:this.state.latitude,
-                longitude:this.state.longitude
+                longitude:this.state.longitude,
+                email: this.props.auth.user.email
             };
             const formData = new FormData();
             formData.append('image',this.state.imageFile);
             this.props.addImageToServer(formData);
             this.props.addProperty(val);
+            this.props.resetAddPropertyForm();
         }
-        this.props.resetAddPropertyForm();
     };
 
     imageHandler = (event) => {
@@ -78,7 +82,7 @@ class AddPropertyComponent extends Component{
                         <h3>Add New Property</h3>
                     </div>
                     <div className="card-body">
-                        <Form model="feedback" onSubmit={value => this.handleSubmit(value)}>
+                        <Form model="addProperty" onSubmit={value => this.handleSubmit(value)}>
                             <Row className="form-group">
                                 <Label htmlFor="propertytitle" md={2}>Property Title</Label>
                                 <Col md={6}>
@@ -158,7 +162,7 @@ class AddPropertyComponent extends Component{
                                     <div className="form-check">
                                         <Label check>
                                             <Control.checkbox model=".garage " name="garage" className="form-check-input"/>{' '}
-                                            <strong>Garage</strong>
+                                            Garage
                                         </Label>
                                     </div>
                                 </Col>
@@ -166,7 +170,7 @@ class AddPropertyComponent extends Component{
                                     <div className="form-check">
                                         <Label check>
                                             <Control.checkbox model=".lounge" name="lounge" className="form-check-input"/>{' '}
-                                            <strong>Lounge</strong>
+                                            Lounge
                                         </Label>
                                     </div>
                                 </Col>
@@ -174,7 +178,6 @@ class AddPropertyComponent extends Component{
                             <Row className="form-group">
                                 <Label htmlFor="address" md={2}>Address</Label>
                                 <Col md={6}>
-
                                     <Control.text model=".address" id="address" name="address"
                                                   placeholder="Address"
                                                   className="form-control"
@@ -204,6 +207,34 @@ class AddPropertyComponent extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
+                                <Label htmlFor="area" md={2}>Area</Label>
+                                <Col md={3}>
+                                    <Control.text model=".area" id="area" name="area"
+                                                  placeholder="Area"
+                                                  className="form-control"
+                                                  validators={{
+                                                      required,isNumber
+                                                  }}
+                                    />
+                                    <Errors model=".area"
+                                            className="text-danger"
+                                            show="touched"
+                                            messages={{
+                                                required: 'Required',
+                                                isNumber: 'Must be Number'
+                                            }}
+                                    />
+
+
+                                </Col>
+                                <Col md={3}>
+                                    <Control.select model=".areaUnit" name="areaUnit" className="form-control" defaultValue="Marla">
+                                        <option>Marla</option>
+                                        <option>Kanal</option>
+                                    </Control.select>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
                                 <Label htmlFor="location" md={2}>Location</Label>
                                 <Col md={{size:6, offset: 0}}>
                                     <Button className="btn-green" onClick={this.getLocation}>
@@ -213,7 +244,7 @@ class AddPropertyComponent extends Component{
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="images" md={2}>Upload Images</Label>
-                                <Col md={{size:6, offset: 0}}>
+                                <Col md={6}>
                                     <Control.file model="image1" id="image1" name="image1"
                                                   className="form-control-file mb-2"
                                                   accept="image/jpg, image/jpeg"
@@ -224,7 +255,7 @@ class AddPropertyComponent extends Component{
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="price" md={2}>Price</Label>
-                                <Col md={6}>
+                                <Col md={3}>
                                     <Control.text model=".price" id="price" name="price"
                                                   placeholder="Price"
                                                   className="form-control"
@@ -232,7 +263,7 @@ class AddPropertyComponent extends Component{
                                                       required,isNumber
                                                   }}
                                     />
-                                    <Errors model=".bathrooms"
+                                    <Errors model=".price"
                                             className="text-danger"
                                             show="touched"
                                             messages={{
@@ -240,7 +271,34 @@ class AddPropertyComponent extends Component{
                                                 isNumber: 'Must be Number'
                                             }}
                                     />
-
+                                </Col>
+                                <Col md={3}>
+                                    <Control.select model=".priceUnit" name="priceUnit" className="form-control" defaultValue="Lac">
+                                        <option>Lac</option>
+                                        <option>Crore</option>
+                                    </Control.select>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="contact" md={2}>Contact No</Label>
+                                <Col md={3}>
+                                    <Control.text model=".contact" id="contact" name="contact"
+                                                  placeholder="03*********"
+                                                  className="form-control"
+                                                  validators={{
+                                                      required,isNumber, minLength: minLength(11), maxLength: maxLength(11)
+                                                  }}
+                                    />
+                                    <Errors model=".contact"
+                                            className="text-danger"
+                                            show="touched"
+                                            messages={{
+                                                required: 'Required',
+                                                minLength:'Invalid Number',
+                                                maxLength:'Invalid Number',
+                                                isNumber: 'Must be Number'
+                                            }}
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">

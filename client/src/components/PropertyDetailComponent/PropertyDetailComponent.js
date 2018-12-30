@@ -12,11 +12,16 @@ const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 class PropertyDetailComponent extends Component{
     handleSubmit= values => {
-        alert(JSON.stringify(values));
+        const val= {
+            ...values,
+            reciever:this.props.property.email
+        };
+        this.props.sendEmailToOwner(val);
+        this.props.resetEmailOwnerForm();
     };
 
     componentDidMount() {
-
+        this.props.resetEmailOwnerForm();
     }
 
     render() {
@@ -77,7 +82,11 @@ class PropertyDetailComponent extends Component{
                                                 </tr>
                                                 <tr>
                                                     <td>Area:</td>
-                                                    <td>{property.bathrooms}</td>
+                                                    <td>{`${property.area} ${property.areaUnit}`} </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Price:</td>
+                                                    <td>{`RS. ${property.price} ${property.priceUnit}`} </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
