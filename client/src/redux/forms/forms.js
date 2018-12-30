@@ -10,3 +10,9 @@ export const InitialFeedback = {
     city:'',
     description: ''
 };
+export const ContactForm = {
+  name:'',
+  contactNumber:'',
+  emailAddress:'',
+  message:''
+};

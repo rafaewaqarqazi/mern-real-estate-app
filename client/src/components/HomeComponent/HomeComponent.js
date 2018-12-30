@@ -23,8 +23,8 @@ const Home = ({recentProperties, isLoading, errMess})=> (
             </div>
         </div>
 
-        <div className= "container">
-            <div className="row mt-5">
+        <div className="container mt-5">
+            <div className="row ">
                 <PropertyComponent properties={recentProperties}
                                    isLoading={isLoading}
                                    errMess={errMess}

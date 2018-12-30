@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import { Control, Form, Errors } from "react-redux-form";
 import {Button, Label, Col, Row } from 'reactstrap';
-import { Link } from "react-router-dom";
-import axios from 'axios';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => !(val) || (val.length >= len);
 const isNumber = val => !isNaN(Number(val));
-const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 
 class AddPropertyComponent extends Component{
 
@@ -20,6 +18,10 @@ class AddPropertyComponent extends Component{
             longitude:''
         }
     }
+    componentDidMount() {
+        this.props.resetAddPropertyForm();
+    }
+
     handleSubmit = values => {
         if (this.state.imageFile === null){
             alert('Please add Image of Property');
@@ -70,12 +72,12 @@ class AddPropertyComponent extends Component{
 
     render() {
         return (
-            <div className="container ">
-                <div className="card mt-5">
-                    <div className="card-title text-center p-4" >
+            <div className="container pt-5">
+                <div className="card ">
+                    <div className="card-title text-center p-4 bg-green text-white" >
                         <h3>Add New Property</h3>
                     </div>
-                    <div className="container ">
+                    <div className="card-body">
                         <Form model="feedback" onSubmit={value => this.handleSubmit(value)}>
                             <Row className="form-group">
                                 <Label htmlFor="propertytitle" md={2}>Property Title</Label>
@@ -85,7 +87,7 @@ class AddPropertyComponent extends Component{
                                                   placeholder="Property Title"
                                                   className="form-control"
                                                   validators={{
-                                                      required, minLength: minLength(3), maxLength: maxLength(15)
+                                                      required, minLength: minLength(3), maxLength: maxLength(30)
                                                   }}
                                     />
                                     <Errors model=".propertytitle"
@@ -94,7 +96,7 @@ class AddPropertyComponent extends Component{
                                             messages={{
                                                 required: 'Required',
                                                 minLength: 'Must be greater than 3 characters',
-                                                maxLength: 'Must be less than 15 Characters'
+                                                maxLength: 'Must be less than 30 Characters'
                                             }}
                                     />
 
@@ -248,6 +250,16 @@ class AddPropertyComponent extends Component{
                                                       rows="12"
                                                       className="form-control"
                                                       placeholder="Your Description goes here..."
+                                                      validators={{
+                                                          required
+                                                      }}
+                                    />
+                                    <Errors model=".description"
+                                            className="text-danger"
+                                            show="touched"
+                                            messages={{
+                                                required: 'Required',
+                                            }}
                                     />
                                 </Col>
                             </Row>

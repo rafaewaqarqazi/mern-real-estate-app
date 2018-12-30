@@ -8,6 +8,7 @@ import ListPropertiesComponent from './ListPropertiesComponent/ListPropertiesCom
 import AdminDashboard from './AdminDashboardComponent/AdminDashboardComponent';
 import UserDashboard from './UserDashboardComponent/UserDashboardComponent';
 import AddPropertyComponent from "./AddPropertyComponent/AddPropertyComponent";
+import PropertyDetail from './PropertyDetailComponent/PropertyDetailComponent';
 import { loginUser, logoutUser, registerUser } from "../redux/actions/authActions";
 import PrivateRoute from '../routes/PrivateRoute';
 import {addImageToServer, addProperty, fetchProperties, fetchRecentProperties} from "../redux/actions/propertyActions";
@@ -71,7 +72,12 @@ class Main extends Component {
                                                                     resetAddPropertyForm={this.props.resetAddPropertyForm}
                                                                 />}
                     />
-                    <Route path="/property/:id"/>
+                    <Route path="/property/:id" component={({match})=><PropertyDetail
+                        property={this.props.properties.properties.filter(property => property._id === match.params.id)[0]}
+                        isLoading={this.props.properties.isLoading}
+                        errMess={this.props.properties.errMess}
+                    />}
+                    />
                     <Redirect to="/"/>
                 </Switch>
                 <Footer/>

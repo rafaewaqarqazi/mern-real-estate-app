@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
 import { createForms } from 'react-redux-form';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import {InitialFeedback} from "../forms/forms";
+import {InitialFeedback, ContactForm} from "../forms/forms";
 import authReducer from "../reducers/authReducers";
 import propertyReducer from '../reducers/propertyReducer';
 import recentPropertiesReducer from '../reducers/recentPropertiesReducer';
@@ -14,7 +14,8 @@ export const ConfigureStore = () => {
             properties:propertyReducer,
             recent:recentPropertiesReducer,
             ...createForms({
-                feedback: InitialFeedback
+                feedback: InitialFeedback,
+                contact: ContactForm
             })
         }),
         compose(

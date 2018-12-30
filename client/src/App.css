@@ -4,6 +4,7 @@
 @import "components/PropertyComponent/propertyComponent.css";
 @import "components/ListPropertiesComponent/list-properties.css";
 @import "components/LoadingComponent/loadingSpinner.css";
+@import "components/PropertyDetailComponent/propertyDetail.css";
 body{
     margin-top: 70px;
     background-image: url("/background.jpg");
