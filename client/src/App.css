@@ -6,9 +6,10 @@
 @import "components/LoadingComponent/loadingSpinner.css";
 @import "components/PropertyDetailComponent/propertyDetail.css";
 body{
-    margin-top: 70px;
+
     background-image: url("/background.jpg");
-    height: 400px;
+
+    height: 450px;
     background-repeat: no-repeat;
     background-size: cover;
 }

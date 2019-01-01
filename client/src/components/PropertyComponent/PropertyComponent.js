@@ -31,20 +31,28 @@ const PropertyComponent = ({properties, isLoading, errMess})=>{
 
                     <div className="card-footer">
                         <div className="row">
-                            <div className="col-md-6">
-                                <p className="card-property-title">{property.propertytitle}</p>
+                            <div className="col-md-8">
+                                <p className="card-property-title overflow-hidden">{property.propertytitle}</p>
                             </div>
-                            <div className="col-md-6">
-                                <p className="text-success">{`RS: ${property.price}`}</p>
+                            <div className="col-md-4">
+                                <p className="text-success">{`RS: ${property.price} ${property.priceUnit}`}</p>
                             </div>
                         </div>
-                        <div className="row card-property-address ml-auto">
-                            {property.address}
+                        <div className="row">
+                            <div className="col-12 col-md-8">
+                                <div className="card-property-address">
+                                    {property.address}
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-4 text-primary">
+                                {`${property.area} ${property.areaUnit}`}
+                            </div>
                         </div>
+
                         <div className="small">
                             <Moment format="MMM DD, YYYY">{property.date}</Moment>
                         </div>
-                        <Link to={`/property/${property._id}`} className="btn btn-block btn-green">View</Link>
+                        <Link to={`/property/${property._id}`} className="btn btn-block btn-green mt-2">View</Link>
 
                     </div>
                 </div>)

@@ -6,6 +6,7 @@ import {InitialFeedback, ContactForm} from "../forms/forms";
 import authReducer from "../reducers/authReducers";
 import propertyReducer from '../reducers/propertyReducer';
 import recentPropertiesReducer from '../reducers/recentPropertiesReducer';
+import myPropertyReducer from "../reducers/myPropertyReducer";
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -13,6 +14,7 @@ export const ConfigureStore = () => {
             auth: authReducer,
             properties:propertyReducer,
             recent:recentPropertiesReducer,
+            myProperties: myPropertyReducer,
             ...createForms({
                 addProperty: InitialFeedback,
                 contact: ContactForm

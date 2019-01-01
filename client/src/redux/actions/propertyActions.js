@@ -87,3 +87,47 @@ export const sendEmailToOwner = (data)=> dispatch =>{
             console.log(error);
     });
 };
+export const fetchMyProperties = (email)=> dispatch => {
+    dispatch(myPropertiesLoading(true));
+    axios
+        .get(`http://localhost:5000/api/property/my/${email}`)
+        .then(res => {
+            if (res.status === 200){
+                dispatch(addMyProperties(res.data));
+            }
+
+        })
+        .catch(err => {
+            dispatch(myPropertiesFailed(err.message));
+        });
+};
+export const removeProperty=(id)=>dispatch=>{
+    axios
+        .delete(`http://localhost:5000/api/property/my/delete/${id}`)
+        .then(res => {
+            if (res.status === 200){
+                dispatch(removeMyProperty(id));
+                dispatch(fetchProperties());
+            }
+
+        })
+        .catch(err => {
+            console.log(JSON.stringify(err))
+        });
+};
+
+export const addMyProperties = (properties) => ({
+    type: ActionTypes.ADD_MY_PROPERTIES,
+    payload: properties
+});
+export const removeMyProperty = (id) => ({
+    type:ActionTypes.REMOVE_MY_PROPERTY,
+    payload: id
+});
+export const myPropertiesLoading = ()=>({
+    type: ActionTypes.MY_PROPERTIES_LOADING
+});
+export const myPropertiesFailed = (errMess)=>({
+    type:ActionTypes.MY_PROPERTIES_FAILED,
+    payload:errMess
+});

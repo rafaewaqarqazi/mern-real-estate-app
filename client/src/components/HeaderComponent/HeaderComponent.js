@@ -69,23 +69,16 @@ class HeaderComponent extends Component{
     render() {
         return (
             <Fragment>
-                <Navbar dark expand="md" className="fixed-top bg-dark">
-                    <NavbarBrand ><NavLink to='/' className="navbar-brand"><span className="fa fa-home fa-lg"> Real Estate</span></NavLink></NavbarBrand>
+                <Navbar dark expand="md" >
+                    <NavLink to='/' className="navbar-brand"><span className="fa fa-home fa-lg"> Real Estate</span></NavLink>
                     <NavbarToggler onClick={this.toggleNav} />
                     <Collapse isOpen={this.state.isNavOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem >
-                                <NavLink to="/list" className="nav-link">
-                                    Buy
+                                <NavLink to="/" className="nav-link">
+                                    Home
                                 </NavLink>
                             </NavItem>
-                            <NavItem >
-                                <NavLink to="/rent" className="nav-link">
-                                    Rent
-                                </NavLink>
-                            </NavItem>
-
-
                             {
                                 this.props.auth.isAuthenticated ?
                                   <Fragment>
@@ -96,7 +89,7 @@ class HeaderComponent extends Component{
                                       </NavItem>
                                       <NavItem >
                                           <NavLink to="/user/dashboard" className="nav-link">
-                                              Dashboard
+                                              My Properties
                                           </NavLink>
                                       </NavItem>
                                       <NavItem className="nav-link" onClick={this.logout}>

@@ -15,16 +15,18 @@ import {
     addImageToServer,
     addProperty,
     fetchProperties,
-    fetchRecentProperties,
+    fetchRecentProperties, removeProperty,
     sendEmailToOwner
 } from "../redux/actions/propertyActions";
 import {actions} from "react-redux-form";
+import axios from "axios";
 
 const mapStateToProps = state => {
     return {
         auth: state.auth,
         properties: state.properties,
-        recent:state.recent
+        recent:state.recent,
+        myProperties: state.myProperties
     }
 };
 
@@ -38,11 +40,13 @@ const mapDispatchToProps = (dispatch) => ({
     fetchRecentProperties:()=>{dispatch(fetchRecentProperties())},
     resetAddPropertyForm: ()=> {dispatch(actions.reset('addProperty'))},
     resetEmailOwnerForm:()=>{dispatch(actions.reset('contact'))},
-    sendEmailToOwner:(data)=>{dispatch(sendEmailToOwner(data))}
+    sendEmailToOwner:(data)=>{dispatch(sendEmailToOwner(data))},
+    removeProperty: (id) => dispatch(removeProperty(id))
 });
 
 
 class Main extends Component {
+
 
 
     componentDidMount() {
@@ -73,7 +77,13 @@ class Main extends Component {
                                                         />}
                     />
                     <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard}/>
-                    <PrivateRoute exact path="/user/dashboard" component={UserDashboard}/>
+                    <PrivateRoute exact path="/user/dashboard" component={()=><UserDashboard
+                                                                                myProperties={this.props.myProperties.myProperties}
+                                                                                isLoading={this.props.myProperties.isLoading}
+                                                                                errMess={this.props.myProperties.errMess}
+                                                                                removeProperty={this.props.removeProperty}
+                                                                                />}
+                    />
                     <PrivateRoute path="/property/add" component={() => <AddPropertyComponent
                                                                     addProperty={this.props.addProperty}
                                                                     addImageToServer={this.props.addImageToServer}

@@ -1,11 +1,10 @@
 import axios from "axios";
-import isEmpty from 'is-empty';
-
 import {
-    GET_CURRENT_USER,
+
     SET_CURRENT_USER,
     USER_LOADING
 } from "./types";
+import {fetchMyProperties} from "./propertyActions";
 // Register User
 export const registerUser = (userData) => dispatch => {
     axios
@@ -24,6 +23,7 @@ export const loginUser = userData => dispatch => {
 
             localStorage.setItem("user",JSON.stringify(res.data) );
             dispatch(setCurrentUser(res.data));
+            dispatch(fetchMyProperties(res.data.email));
             alert('Logged in Successfully');
         })
         .catch(err => {
@@ -41,8 +41,9 @@ export const setCurrentUser = userId => {
 export const getCurrentUser = () => dispatch => {
     dispatch(setUserLoading());
     if (localStorage.getItem("user") != null){
-
-        dispatch(setCurrentUser((JSON.parse(localStorage.getItem("user")) ) ));
+        const user = JSON.parse(localStorage.getItem("user"));
+        dispatch(setCurrentUser(user));
+        dispatch(fetchMyProperties(user.email));
     }
 
 };
@@ -70,6 +71,5 @@ export const logoutUser = () => dispatch => {
         .catch(err => {
             alert('Logout Failed');
         });
-
-
 };
+

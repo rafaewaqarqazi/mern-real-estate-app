@@ -6,7 +6,7 @@ const Footer = props => (
 
             <div className="row justify-content-center">
                 <div className="col-md-3 col-12 text-center">
-                    <h4><span className="fa fa-home fa-lg"> Real Estate</span></h4>
+                    <Link to="/" className="link-green"><h4><span className="fa fa-home fa-lg"> Real Estate</span></h4></Link>
                 </div>
                 <div className="col-md-9 col-12 text-center">
                     © Copyright 2018 Geek's Crew

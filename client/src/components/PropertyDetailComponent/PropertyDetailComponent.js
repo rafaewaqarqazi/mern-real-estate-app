@@ -117,6 +117,10 @@ class PropertyDetailComponent extends Component{
                                                     <td>Added On:</td>
                                                     <td><Moment format="MMM DD, YYYY">{property.date}</Moment></td>
                                                 </tr>
+                                                <tr >
+                                                    <td>Location</td>
+                                                    <td><a href={`https://www.google.com/maps?q=${property.location.coordinates[0]},${property.location.coordinates[1]}`} target="_blank" className="btn btn-block btn-green">See Location</a></td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>

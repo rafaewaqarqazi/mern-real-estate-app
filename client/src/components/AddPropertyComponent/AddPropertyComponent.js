@@ -161,7 +161,7 @@ class AddPropertyComponent extends Component{
                                 <Col md={{size: 1, offset: 2}}>
                                     <div className="form-check">
                                         <Label check>
-                                            <Control.checkbox model=".garage " name="garage" className="form-check-input"/>{' '}
+                                            <Control.checkbox model=".garage" name="garage" className="form-check-input"/>{' '}
                                             Garage
                                         </Label>
                                     </div>

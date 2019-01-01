@@ -14,6 +14,9 @@
 .link-green {
     color: #0eaaa6;
 }
+.link-green:hover{
+    color: #068b85;
+}
 .navbar-dark .navbar-nav .nav-link {
     color: white;
 }
