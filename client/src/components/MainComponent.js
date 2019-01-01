@@ -19,7 +19,6 @@ import {
     sendEmailToOwner
 } from "../redux/actions/propertyActions";
 import {actions} from "react-redux-form";
-import axios from "axios";
 
 const mapStateToProps = state => {
     return {

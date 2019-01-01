@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Control, Form, Errors } from "react-redux-form";
 import {Button, Label, Col, Row } from 'reactstrap';
-import mapStateToProps from "react-redux/es/connect/mapStateToProps";
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => !(val) || (val.length >= len);

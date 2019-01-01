@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Moment from 'react-moment';
 import {Label, Button, Row, Col} from "reactstrap";
-import {Errors, LocalForm, Control, Form} from "react-redux-form";
+import {Errors, Control, Form} from "react-redux-form";
 import {Loading} from "../LoadingComponent/LoadingComponent";
 
 const required = (val) => val && val.length;
