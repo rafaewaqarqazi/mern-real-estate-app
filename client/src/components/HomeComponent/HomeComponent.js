@@ -19,6 +19,7 @@ class Home extends Component {
         }
     }
     componentWillMount() {
+
         axios.get("http://localhost:5000/api/property/count/Islamabad")
             .then((response) => {
                 this.setState({

@@ -165,7 +165,7 @@ class HeaderComponent extends Component{
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Input type="password2" id="password2" name="password2"
+                                <Input type="password" id="password2" name="password2"
                                        innerRef={(input) => this.password2 = input}
                                        placeholder="Confirm Password"
                                 />

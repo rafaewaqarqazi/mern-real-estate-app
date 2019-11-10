@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const users = require('./routes/api/users');
 const uploads = require('./routes/api/uploads');
 const property = require('./routes/api/property');
@@ -33,6 +34,7 @@ app.use(session({
 
 
 app.use(bodyParser.json());
+app.use(cookieParser())
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,5 +63,5 @@ app.get('*',(req, res)=>{
 });
 
 app.listen(port,()=>{
-    console.log(`Server in running on PORT ${port}`);
+    console.log(`Server in running on PORT ${port}` );
 });
