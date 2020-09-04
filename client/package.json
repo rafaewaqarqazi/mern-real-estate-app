@@ -44,7 +44,7 @@
     "mini-css-extract-plugin": "0.4.3",
     "moment": "2.23.0",
     "moment-timezone": "0.5.23",
-    "node-sass": "4.11.0",
+    "node-sass": "4.13.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.1.0",
     "postcss-flexbugs-fixes": "4.1.0",
