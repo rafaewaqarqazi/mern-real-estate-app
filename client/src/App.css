@@ -1,3 +1,9 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 @import "components/FooterComponent/footer.css";
 @import "components/HeaderComponent/header.css";
 @import "components/HomeComponent/homePage.css";
@@ -5,16 +11,15 @@
 @import "components/ListPropertiesComponent/list-properties.css";
 @import "components/LoadingComponent/loadingSpinner.css";
 @import "components/PropertyDetailComponent/propertyDetail.css";
+
 body{
-
     background-image: url("/background.jpg");
-
     height: 450px;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .bg-green{
-    background: #0eaaa6;
+    background: #057975;
 }
 .bg-darkBrown{
     background: #004D40;

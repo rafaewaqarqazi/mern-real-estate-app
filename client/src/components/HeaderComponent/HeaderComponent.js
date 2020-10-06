@@ -73,8 +73,8 @@ class HeaderComponent extends Component{
                     <NavLink to='/' className="navbar-brand"><span className="fa fa-home fa-lg"> Real Estate</span></NavLink>
                     <NavbarToggler onClick={this.toggleNav} />
                     <Collapse isOpen={this.state.isNavOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem >
+                        <Nav role='navigation' className="ml-auto" navbar>
+                            <NavItem role='link' >
                                 <NavLink to="/" className="nav-link">
                                     Home
                                 </NavLink>
@@ -82,17 +82,17 @@ class HeaderComponent extends Component{
                             {
                                 this.props.auth.isAuthenticated ?
                                   <Fragment>
-                                      <NavItem >
+                                      <NavItem role='link' >
                                           <NavLink to="/property/add" className="nav-link">
                                               Add Property
                                           </NavLink>
                                       </NavItem>
-                                      <NavItem >
+                                      <NavItem role='link'>
                                           <NavLink to="/user/dashboard" className="nav-link">
                                               My Properties
                                           </NavLink>
                                       </NavItem>
-                                      <NavItem className="nav-link" onClick={this.logout}>
+                                      <NavItem role='button' className="nav-link" onClick={this.logout}>
                                           Logout
                                       </NavItem>
                                   </Fragment>
@@ -101,10 +101,10 @@ class HeaderComponent extends Component{
 
                                     :
                                     <Fragment >
-                                        <NavItem className="mr-1 nav-link"  onClick={this.toggleSignUpModal}>
+                                        <NavItem role='button' className="mr-1 nav-link cursor-pointer"  onClick={this.toggleSignUpModal}>
                                             Sign Up
                                         </NavItem>
-                                        <NavItem className="nav-link" onClick={this.toggleModal}>
+                                        <NavItem role='button' className="mr-1 nav-link cursor-pointer" onClick={this.toggleModal}>
                                             Sign In
                                         </NavItem>
                                     </Fragment>
