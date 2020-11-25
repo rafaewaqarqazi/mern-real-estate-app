@@ -40,7 +40,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Using Routes
-
 app.use('/api/users', users);
 app.use('/api/uploads',uploads);
 app.use('/api/property',property);
@@ -51,7 +50,7 @@ const db = require('./config/keys').mongoURI;
 
 //Connect to MongoDB
 
-mongoose.connect(db)
+mongoose.connect(db, { useNewUrlParser: true })
     .then(()=> console.log('Connected to MongoDB'))
     .catch(err => console.log(err.message));
 
